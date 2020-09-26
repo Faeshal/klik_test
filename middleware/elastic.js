@@ -1,5 +1,4 @@
 require("dotenv").config();
-const ElasticsearchTransport = require("winston-elasticsearch");
 
 const esTransportOpts = {
   level: "info",
@@ -9,6 +8,4 @@ const esTransportOpts = {
   },
 };
 
-const esTransport = new ElasticsearchTransport(esTransportOpts);
-
-module.exports = esTransport;
+module.exports = esTransportOpts;

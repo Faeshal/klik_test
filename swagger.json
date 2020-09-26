@@ -1,0 +1,1049 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "title": "KLIK  DIGITAL SINERGI API",
+    "description": "Backend REST API for technical test in klik digital sinergi. Build Nodejs + Express, MongoDB, ElasticSearch & integrated with midtrans payment gateway",
+    "contact": {}
+  },
+  "host": "localhost:1000",
+  "basePath": "/api",
+  "securityDefinitions": {},
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "description": "register new user",
+        "summary": "register",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "register",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/registerrequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "description": "sign in user with JWT access token",
+        "summary": "login",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "login",
+        "deprecated": false,
+        "produces": [
+          "application/json; charset=utf-8"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/loginrequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/login"
+            },
+            "examples": {
+              "application/json; charset=utf-8": {
+                "success": true,
+                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmNmY2NmVmNTA4ZTE4MzkwMDdjMTUyZiIsImlhdCI6MTYwMTEzNjQyMiwiZXhwIjoxNjAzNzI4NDIyfQ.lVh0nSu5cnovD0IUor254RSjfmt0PFo2CdiFBHeXy_U"
+              }
+            },
+            "headers": {
+              "Content-Security-Policy": {
+                "type": "string",
+                "default": "default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+              },
+              "X-DNS-Prefetch-Control": {
+                "type": "string",
+                "default": "off"
+              },
+              "Expect-CT": {
+                "type": "string",
+                "default": "max-age=0"
+              },
+              "X-Frame-Options": {
+                "type": "string",
+                "default": "SAMEORIGIN"
+              },
+              "Strict-Transport-Security": {
+                "type": "string",
+                "default": "max-age=15552000; includeSubDomains"
+              },
+              "X-Download-Options": {
+                "type": "string",
+                "default": "noopen"
+              },
+              "X-Content-Type-Options": {
+                "type": "string",
+                "default": "nosniff"
+              },
+              "X-Permitted-Cross-Domain-Policies": {
+                "type": "string",
+                "default": "none"
+              },
+              "Referrer-Policy": {
+                "type": "string",
+                "default": "no-referrer"
+              },
+              "X-XSS-Protection": {
+                "type": "string",
+                "default": "0"
+              },
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "default": "*"
+              },
+              "Content-Length": {
+                "type": "string",
+                "default": "198"
+              },
+              "ETag": {
+                "type": "string",
+                "default": "W/\"c6-xlat9bT+qBpkCUJZ6S7pQ7hStBM\""
+              },
+              "Date": {
+                "type": "string",
+                "default": "Sat, 26 Sep 2020 16:07:02 GMT"
+              },
+              "Connection": {
+                "type": "string",
+                "default": "keep-alive"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/me": {
+      "get": {
+        "description": "get detail user information that currently logged in",
+        "summary": "get me",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "getme",
+        "deprecated": false,
+        "produces": [
+          "application/json; charset=utf-8"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/getme"
+            },
+            "examples": {
+              "application/json; charset=utf-8": {
+                "success": true,
+                "data": {
+                  "_id": "5f6f66ef508e1839007c152f",
+                  "username": "faeshal",
+                  "email": "faeshal@gmail.com",
+                  "createdAt": "2020-09-26T16:06:07.209Z",
+                  "__v": 0
+                }
+              }
+            },
+            "headers": {
+              "Content-Security-Policy": {
+                "type": "string",
+                "default": "default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+              },
+              "X-DNS-Prefetch-Control": {
+                "type": "string",
+                "default": "off"
+              },
+              "Expect-CT": {
+                "type": "string",
+                "default": "max-age=0"
+              },
+              "X-Frame-Options": {
+                "type": "string",
+                "default": "SAMEORIGIN"
+              },
+              "Strict-Transport-Security": {
+                "type": "string",
+                "default": "max-age=15552000; includeSubDomains"
+              },
+              "X-Download-Options": {
+                "type": "string",
+                "default": "noopen"
+              },
+              "X-Content-Type-Options": {
+                "type": "string",
+                "default": "nosniff"
+              },
+              "X-Permitted-Cross-Domain-Policies": {
+                "type": "string",
+                "default": "none"
+              },
+              "Referrer-Policy": {
+                "type": "string",
+                "default": "no-referrer"
+              },
+              "X-XSS-Protection": {
+                "type": "string",
+                "default": "0"
+              },
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "default": "*"
+              },
+              "Content-Length": {
+                "type": "string",
+                "default": "154"
+              },
+              "ETag": {
+                "type": "string",
+                "default": "W/\"9a-itQFtnMeQSEy7jKHMF4Wd/gBwyI\""
+              },
+              "Date": {
+                "type": "string",
+                "default": "Sat, 26 Sep 2020 16:07:22 GMT"
+              },
+              "Connection": {
+                "type": "string",
+                "default": "keep-alive"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/payments": {
+      "post": {
+        "summary": "create payment",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "createpayment",
+        "deprecated": false,
+        "produces": [
+          "application/json; charset=utf-8"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/createpaymentrequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/createpayment"
+            },
+            "examples": {
+              "application/json; charset=utf-8": {
+                "success": true,
+                "data": {
+                  "_id": "5f6f6899508e1839007c1531",
+                  "user": {
+                    "_id": "5f6f66ef508e1839007c152f",
+                    "username": "faeshal",
+                    "email": "faeshal@gmail.com"
+                  },
+                  "productName": "yamaha vixion",
+                  "quantity": 2,
+                  "price": 25000000,
+                  "total": 50000000,
+                  "createdAt": "2020-09-26T16:13:13.046Z",
+                  "__v": 0
+                },
+                "chargeResponse": {
+                  "status_code": "201",
+                  "status_message": "GO-PAY transaction is created",
+                  "transaction_id": "3b1ac5e8-9d14-4bfd-aa2c-296398f895e7",
+                  "order_id": "5f6f6899508e1839007c1531",
+                  "merchant_id": "G998502637",
+                  "gross_amount": "50000000.00",
+                  "currency": "IDR",
+                  "payment_type": "gopay",
+                  "transaction_time": "2020-09-26 23:13:14",
+                  "transaction_status": "pending",
+                  "fraud_status": "accept",
+                  "actions": [
+                    {
+                      "name": "generate-qr-code",
+                      "method": "GET",
+                      "url": "https://api.sandbox.veritrans.co.id/v2/gopay/3b1ac5e8-9d14-4bfd-aa2c-296398f895e7/qr-code"
+                    },
+                    {
+                      "name": "deeplink-redirect",
+                      "method": "GET",
+                      "url": "https://simulator.sandbox.midtrans.com/gopay/ui/checkout?referenceid=Bvlat4Z9Ab&callback_url=http%3A%2F%2Flocalhost%3A1000%2F%3Forder_id%3D5f6f6899508e1839007c1531"
+                    },
+                    {
+                      "name": "get-status",
+                      "method": "GET",
+                      "url": "https://api.sandbox.veritrans.co.id/v2/3b1ac5e8-9d14-4bfd-aa2c-296398f895e7/status"
+                    },
+                    {
+                      "name": "cancel",
+                      "method": "POST",
+                      "url": "https://api.sandbox.veritrans.co.id/v2/3b1ac5e8-9d14-4bfd-aa2c-296398f895e7/cancel"
+                    }
+                  ]
+                }
+              }
+            },
+            "headers": {
+              "Content-Security-Policy": {
+                "type": "string",
+                "default": "default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+              },
+              "X-DNS-Prefetch-Control": {
+                "type": "string",
+                "default": "off"
+              },
+              "Expect-CT": {
+                "type": "string",
+                "default": "max-age=0"
+              },
+              "X-Frame-Options": {
+                "type": "string",
+                "default": "SAMEORIGIN"
+              },
+              "Strict-Transport-Security": {
+                "type": "string",
+                "default": "max-age=15552000; includeSubDomains"
+              },
+              "X-Download-Options": {
+                "type": "string",
+                "default": "noopen"
+              },
+              "X-Content-Type-Options": {
+                "type": "string",
+                "default": "nosniff"
+              },
+              "X-Permitted-Cross-Domain-Policies": {
+                "type": "string",
+                "default": "none"
+              },
+              "Referrer-Policy": {
+                "type": "string",
+                "default": "no-referrer"
+              },
+              "X-XSS-Protection": {
+                "type": "string",
+                "default": "0"
+              },
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "default": "*"
+              },
+              "Content-Length": {
+                "type": "string",
+                "default": "1269"
+              },
+              "ETag": {
+                "type": "string",
+                "default": "W/\"4f5-bY5kbehEZK+ySkYv9ixbCTKl5ME\""
+              },
+              "Date": {
+                "type": "string",
+                "default": "Sat, 26 Sep 2020 16:13:14 GMT"
+              },
+              "Connection": {
+                "type": "string",
+                "default": "keep-alive"
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "list payments",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "listpayments",
+        "deprecated": false,
+        "produces": [
+          "application/json; charset=utf-8"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/listpayments"
+            },
+            "examples": {
+              "application/json; charset=utf-8": {
+                "success": true,
+                "total": 2,
+                "data": [
+                  {
+                    "_id": "5f6f6899508e1839007c1531",
+                    "user": {
+                      "_id": "5f6f66ef508e1839007c152f",
+                      "username": "faeshal",
+                      "email": "faeshal@gmail.com"
+                    },
+                    "productName": "yamaha vixion",
+                    "quantity": 2,
+                    "price": 25000000,
+                    "total": 50000000,
+                    "createdAt": "2020-09-26T16:13:13.046Z",
+                    "__v": 0
+                  },
+                  {
+                    "_id": "5f6f6901508e1839007c1532",
+                    "user": {
+                      "_id": "5f6f66ef508e1839007c152f",
+                      "username": "faeshal",
+                      "email": "faeshal@gmail.com"
+                    },
+                    "productName": "Honda Beat",
+                    "quantity": 3,
+                    "price": 12000000,
+                    "total": 36000000,
+                    "createdAt": "2020-09-26T16:14:57.651Z",
+                    "__v": 0
+                  }
+                ]
+              }
+            },
+            "headers": {
+              "Content-Security-Policy": {
+                "type": "string",
+                "default": "default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+              },
+              "X-DNS-Prefetch-Control": {
+                "type": "string",
+                "default": "off"
+              },
+              "Expect-CT": {
+                "type": "string",
+                "default": "max-age=0"
+              },
+              "X-Frame-Options": {
+                "type": "string",
+                "default": "SAMEORIGIN"
+              },
+              "Strict-Transport-Security": {
+                "type": "string",
+                "default": "max-age=15552000; includeSubDomains"
+              },
+              "X-Download-Options": {
+                "type": "string",
+                "default": "noopen"
+              },
+              "X-Content-Type-Options": {
+                "type": "string",
+                "default": "nosniff"
+              },
+              "X-Permitted-Cross-Domain-Policies": {
+                "type": "string",
+                "default": "none"
+              },
+              "Referrer-Policy": {
+                "type": "string",
+                "default": "no-referrer"
+              },
+              "X-XSS-Protection": {
+                "type": "string",
+                "default": "0"
+              },
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "default": "*"
+              },
+              "Content-Length": {
+                "type": "string",
+                "default": "532"
+              },
+              "ETag": {
+                "type": "string",
+                "default": "W/\"214-XRcWGvY4xpq6IyeH2moaXxnzf5s\""
+              },
+              "Date": {
+                "type": "string",
+                "default": "Sat, 26 Sep 2020 16:15:03 GMT"
+              },
+              "Connection": {
+                "type": "string",
+                "default": "keep-alive"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "registerrequest": {
+      "title": "registerrequest",
+      "example": {
+        "username": "faeshal",
+        "email": "faeshal@gmail.com",
+        "password": "faeshal123"
+      },
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "username",
+        "email",
+        "password"
+      ]
+    },
+    "loginrequest": {
+      "title": "loginrequest",
+      "example": {
+        "email": "faeshal@gmail.com",
+        "password": "faeshal123"
+      },
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "email",
+        "password"
+      ]
+    },
+    "login": {
+      "title": "login",
+      "example": {
+        "success": true,
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmNmY2NmVmNTA4ZTE4MzkwMDdjMTUyZiIsImlhdCI6MTYwMTEzNjQyMiwiZXhwIjoxNjAzNzI4NDIyfQ.lVh0nSu5cnovD0IUor254RSjfmt0PFo2CdiFBHeXy_U"
+      },
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "token": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "success",
+        "token"
+      ]
+    },
+    "getme": {
+      "title": "getme",
+      "example": {
+        "success": true,
+        "data": {
+          "_id": "5f6f66ef508e1839007c152f",
+          "username": "faeshal",
+          "email": "faeshal@gmail.com",
+          "createdAt": "2020-09-26T16:06:07.209Z",
+          "__v": 0
+        }
+      },
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "data": {
+          "$ref": "#/definitions/Data"
+        }
+      },
+      "required": [
+        "success",
+        "data"
+      ]
+    },
+    "Data": {
+      "title": "Data",
+      "example": {
+        "_id": "5f6f66ef508e1839007c152f",
+        "username": "faeshal",
+        "email": "faeshal@gmail.com",
+        "createdAt": "2020-09-26T16:06:07.209Z",
+        "__v": 0
+      },
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "__v": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "required": [
+        "_id",
+        "username",
+        "email",
+        "createdAt",
+        "__v"
+      ]
+    },
+    "createpaymentrequest": {
+      "title": "createpaymentrequest",
+      "example": {
+        "productName": "yamaha vixion",
+        "quantity": 2,
+        "price": 25000000
+      },
+      "type": "object",
+      "properties": {
+        "productName": {
+          "type": "string"
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "price": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "required": [
+        "productName",
+        "quantity",
+        "price"
+      ]
+    },
+    "createpayment": {
+      "title": "createpayment",
+      "example": {
+        "success": true,
+        "data": {
+          "_id": "5f6f6899508e1839007c1531",
+          "user": {
+            "_id": "5f6f66ef508e1839007c152f",
+            "username": "faeshal",
+            "email": "faeshal@gmail.com"
+          },
+          "productName": "yamaha vixion",
+          "quantity": 2,
+          "price": 25000000,
+          "total": 50000000,
+          "createdAt": "2020-09-26T16:13:13.046Z",
+          "__v": 0
+        },
+        "chargeResponse": {
+          "status_code": "201",
+          "status_message": "GO-PAY transaction is created",
+          "transaction_id": "3b1ac5e8-9d14-4bfd-aa2c-296398f895e7",
+          "order_id": "5f6f6899508e1839007c1531",
+          "merchant_id": "G998502637",
+          "gross_amount": "50000000.00",
+          "currency": "IDR",
+          "payment_type": "gopay",
+          "transaction_time": "2020-09-26 23:13:14",
+          "transaction_status": "pending",
+          "fraud_status": "accept",
+          "actions": [
+            {
+              "name": "generate-qr-code",
+              "method": "GET",
+              "url": "https://api.sandbox.veritrans.co.id/v2/gopay/3b1ac5e8-9d14-4bfd-aa2c-296398f895e7/qr-code"
+            },
+            {
+              "name": "deeplink-redirect",
+              "method": "GET",
+              "url": "https://simulator.sandbox.midtrans.com/gopay/ui/checkout?referenceid=Bvlat4Z9Ab&callback_url=http%3A%2F%2Flocalhost%3A1000%2F%3Forder_id%3D5f6f6899508e1839007c1531"
+            },
+            {
+              "name": "get-status",
+              "method": "GET",
+              "url": "https://api.sandbox.veritrans.co.id/v2/3b1ac5e8-9d14-4bfd-aa2c-296398f895e7/status"
+            },
+            {
+              "name": "cancel",
+              "method": "POST",
+              "url": "https://api.sandbox.veritrans.co.id/v2/3b1ac5e8-9d14-4bfd-aa2c-296398f895e7/cancel"
+            }
+          ]
+        }
+      },
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "data": {
+          "$ref": "#/definitions/Data1"
+        },
+        "chargeResponse": {
+          "$ref": "#/definitions/ChargeResponse"
+        }
+      },
+      "required": [
+        "success",
+        "data",
+        "chargeResponse"
+      ]
+    },
+    "Data1": {
+      "title": "Data1",
+      "example": {
+        "_id": "5f6f6899508e1839007c1531",
+        "user": {
+          "_id": "5f6f66ef508e1839007c152f",
+          "username": "faeshal",
+          "email": "faeshal@gmail.com"
+        },
+        "productName": "yamaha vixion",
+        "quantity": 2,
+        "price": 25000000,
+        "total": 50000000,
+        "createdAt": "2020-09-26T16:13:13.046Z",
+        "__v": 0
+      },
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "user": {
+          "$ref": "#/definitions/User"
+        },
+        "productName": {
+          "type": "string"
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "price": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "__v": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "required": [
+        "_id",
+        "user",
+        "productName",
+        "quantity",
+        "price",
+        "total",
+        "createdAt",
+        "__v"
+      ]
+    },
+    "User": {
+      "title": "User",
+      "example": {
+        "_id": "5f6f66ef508e1839007c152f",
+        "username": "faeshal",
+        "email": "faeshal@gmail.com"
+      },
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "_id",
+        "username",
+        "email"
+      ]
+    },
+    "ChargeResponse": {
+      "title": "ChargeResponse",
+      "example": {
+        "status_code": "201",
+        "status_message": "GO-PAY transaction is created",
+        "transaction_id": "3b1ac5e8-9d14-4bfd-aa2c-296398f895e7",
+        "order_id": "5f6f6899508e1839007c1531",
+        "merchant_id": "G998502637",
+        "gross_amount": "50000000.00",
+        "currency": "IDR",
+        "payment_type": "gopay",
+        "transaction_time": "2020-09-26 23:13:14",
+        "transaction_status": "pending",
+        "fraud_status": "accept",
+        "actions": [
+          {
+            "name": "generate-qr-code",
+            "method": "GET",
+            "url": "https://api.sandbox.veritrans.co.id/v2/gopay/3b1ac5e8-9d14-4bfd-aa2c-296398f895e7/qr-code"
+          },
+          {
+            "name": "deeplink-redirect",
+            "method": "GET",
+            "url": "https://simulator.sandbox.midtrans.com/gopay/ui/checkout?referenceid=Bvlat4Z9Ab&callback_url=http%3A%2F%2Flocalhost%3A1000%2F%3Forder_id%3D5f6f6899508e1839007c1531"
+          },
+          {
+            "name": "get-status",
+            "method": "GET",
+            "url": "https://api.sandbox.veritrans.co.id/v2/3b1ac5e8-9d14-4bfd-aa2c-296398f895e7/status"
+          },
+          {
+            "name": "cancel",
+            "method": "POST",
+            "url": "https://api.sandbox.veritrans.co.id/v2/3b1ac5e8-9d14-4bfd-aa2c-296398f895e7/cancel"
+          }
+        ]
+      },
+      "type": "object",
+      "properties": {
+        "status_code": {
+          "type": "string"
+        },
+        "status_message": {
+          "type": "string"
+        },
+        "transaction_id": {
+          "type": "string"
+        },
+        "order_id": {
+          "type": "string"
+        },
+        "merchant_id": {
+          "type": "string"
+        },
+        "gross_amount": {
+          "type": "string"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "payment_type": {
+          "type": "string"
+        },
+        "transaction_time": {
+          "type": "string"
+        },
+        "transaction_status": {
+          "type": "string"
+        },
+        "fraud_status": {
+          "type": "string"
+        },
+        "actions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Action"
+          }
+        }
+      },
+      "required": [
+        "status_code",
+        "status_message",
+        "transaction_id",
+        "order_id",
+        "merchant_id",
+        "gross_amount",
+        "currency",
+        "payment_type",
+        "transaction_time",
+        "transaction_status",
+        "fraud_status",
+        "actions"
+      ]
+    },
+    "Action": {
+      "title": "Action",
+      "example": {
+        "name": "generate-qr-code",
+        "method": "GET",
+        "url": "https://api.sandbox.veritrans.co.id/v2/gopay/3b1ac5e8-9d14-4bfd-aa2c-296398f895e7/qr-code"
+      },
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "method": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "method",
+        "url"
+      ]
+    },
+    "listpayments": {
+      "title": "listpayments",
+      "example": {
+        "success": true,
+        "total": 2,
+        "data": [
+          {
+            "_id": "5f6f6899508e1839007c1531",
+            "user": {
+              "_id": "5f6f66ef508e1839007c152f",
+              "username": "faeshal",
+              "email": "faeshal@gmail.com"
+            },
+            "productName": "yamaha vixion",
+            "quantity": 2,
+            "price": 25000000,
+            "total": 50000000,
+            "createdAt": "2020-09-26T16:13:13.046Z",
+            "__v": 0
+          },
+          {
+            "_id": "5f6f6901508e1839007c1532",
+            "user": {
+              "_id": "5f6f66ef508e1839007c152f",
+              "username": "faeshal",
+              "email": "faeshal@gmail.com"
+            },
+            "productName": "Honda Beat",
+            "quantity": 3,
+            "price": 12000000,
+            "total": 36000000,
+            "createdAt": "2020-09-26T16:14:57.651Z",
+            "__v": 0
+          }
+        ]
+      },
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Data1"
+          }
+        }
+      },
+      "required": [
+        "success",
+        "total",
+        "data"
+      ]
+    }
+  },
+  "tags": [
+    {
+      "name": "Misc",
+      "description": ""
+    }
+  ]
+}

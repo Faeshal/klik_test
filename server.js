@@ -9,11 +9,14 @@ const helmet = require("helmet");
 const cors = require("cors");
 const winston = require("winston");
 const expressWinston = require("express-winston");
+const winstonElasticSearch = require("winston-elasticsearch");
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("./swagger.json");
 const authRoutes = require("./routes/auth");
 const paymentRoutes = require("./routes/payment");
-const esTransport = require("./middleware/elastic");
+const esTransportOpts = require("./middleware/elastic");
 
 // * Main & Security
 app.use(helmet());
@@ -40,7 +43,9 @@ app.use(
   expressWinston.logger({
     level: "info",
     format: winston.format.json(),
-    transports: [esTransport],
+    transports: [
+      new winstonElasticSearch.ElasticsearchTransport(esTransportOpts),
+    ],
     meta: true,
     msg: "HTTP {{req.method}} {{req.url}} - {{res.responseTime}}ms",
     ignoreRoute: function (req, res) {
@@ -52,11 +57,9 @@ app.use(
 // * Routing
 app.use(authRoutes);
 app.use(paymentRoutes);
-app.get("/", (req, res, next) => {
-  res.json({ success: true });
-});
+app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-// * Server Listen & Database
+// * Database & Server Listen
 mongoConnection();
 
 app.listen(PORT, (err) => {

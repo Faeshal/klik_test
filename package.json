@@ -25,6 +25,7 @@
     "midtrans-client": "^1.2.1",
     "mongoose": "^5.10.7",
     "morgan": "^1.10.0",
+    "swagger-ui-express": "^4.1.4",
     "winston": "^3.3.3",
     "winston-elasticsearch": "^0.10.0"
   },
