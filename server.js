@@ -4,7 +4,6 @@ const app = express();
 const PORT = 1000;
 const mongoConnection = require("./middleware/mongo");
 const client = require("./middleware/elastic");
-const MONGO_URI = "mongodb://localhost:27017/klik";
 const morgan = require("morgan");
 const chalk = require("chalk");
 const helmet = require("helmet");
@@ -22,7 +21,7 @@ app.use(express.json());
 
 // * Session & Cookie
 const store = new MongoDBStore({
-  uri: MONGO_URI,
+  uri: process.env.MONGO_URI,
 });
 
 app.use(

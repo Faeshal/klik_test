@@ -1,3 +1,4 @@
+require("dotenv").config();
 const asyncHandler = require("../middleware/asyncHandler");
 const Payment = require("../models/Payment");
 const chalk = require("chalk");
@@ -9,7 +10,7 @@ const midtrans = require("../middleware/midtrans");
 const esTransportOpts = {
   level: "info",
   clientOpts: {
-    node: "http://localhost:9200",
+    node: process.env.ELASTIC_URI,
     log: "info",
   },
 };
@@ -18,11 +19,15 @@ const esTransportOpts = {
 // @desc    Register a User
 // @access  Private
 exports.createPayments = asyncHandler(async (req, res, next) => {
-  const { productName, price } = req.body;
+  let { productName, price, quantity } = req.body;
+  if (!quantity || quantity == 0) {
+    quantity = 1;
+  }
   const userId = req.user;
+  const total = price * quantity;
 
   // * Save To MongoDB
-  await Payment.create({ user: userId, productName, price });
+  await Payment.create({ user: userId, productName, quantity, price, total });
   const payment = await Payment.findOne({ user: userId })
     .populate("user", "username email")
     .sort({ _id: -1 });
@@ -32,9 +37,16 @@ exports.createPayments = asyncHandler(async (req, res, next) => {
   let parameter = {
     payment_type: "gopay",
     transaction_details: {
-      gross_amount: price,
+      gross_amount: total,
       order_id: payment._id,
     },
+    item_details: [
+      {
+        price: price,
+        quantity: quantity,
+        name: productName,
+      },
+    ],
     customer_details: {
       username: payment.user.username,
       email: payment.user.email,

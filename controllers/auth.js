@@ -1,10 +1,10 @@
+require("dotenv").config();
 const asyncHandler = require("../middleware/asyncHandler");
 const User = require("../models/User");
 const chalk = require("chalk");
 const bcrypt = require("bcryptjs");
 const { generateAccessToken } = require("../middleware/auth");
 // const { logger, hello } = require("../middleware/logger");
-const stringify = require("json-stringify-safe");
 const winston = require("winston");
 const Elasticsearch = require("winston-elasticsearch");
 
@@ -12,7 +12,7 @@ const Elasticsearch = require("winston-elasticsearch");
 const esTransportOpts = {
   level: "info",
   clientOpts: {
-    node: "http://localhost:9200",
+    node: process.env.ELASTIC_URI,
     log: "info",
   },
 };
