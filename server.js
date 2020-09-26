@@ -3,15 +3,17 @@ const express = require("express");
 const app = express();
 const PORT = 1000;
 const mongoConnection = require("./middleware/mongo");
-const client = require("./middleware/elastic");
 const morgan = require("morgan");
 const chalk = require("chalk");
 const helmet = require("helmet");
 const cors = require("cors");
+const winston = require("winston");
+const expressWinston = require("express-winston");
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
 const authRoutes = require("./routes/auth");
 const paymentRoutes = require("./routes/payment");
+const esTransport = require("./middleware/elastic");
 
 // * Main & Security
 app.use(helmet());
@@ -33,6 +35,20 @@ app.use(
   })
 );
 
+// * Logger
+app.use(
+  expressWinston.logger({
+    level: "info",
+    format: winston.format.json(),
+    transports: [esTransport],
+    meta: true,
+    msg: "HTTP {{req.method}} {{req.url}} - {{res.responseTime}}ms",
+    ignoreRoute: function (req, res) {
+      return false;
+    },
+  })
+);
+
 // * Routing
 app.use(authRoutes);
 app.use(paymentRoutes);
@@ -42,10 +58,6 @@ app.get("/", (req, res, next) => {
 
 // * Server Listen & Database
 mongoConnection();
-
-// client.cluster.health({}, function (err, resp, status) {
-//   console.log("-- Client Health --", resp);
-// });
 
 app.listen(PORT, (err) => {
   if (err) {

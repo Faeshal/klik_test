@@ -1,5 +1,14 @@
-const { Client } = require("@elastic/elasticsearch");
+require("dotenv").config();
+const ElasticsearchTransport = require("winston-elasticsearch");
 
-const client = new Client({ node: "http://localhost:9200" });
+const esTransportOpts = {
+  level: "info",
+  clientOpts: {
+    node: process.env.ELASTIC_URI,
+    log: "info",
+  },
+};
 
-module.exports = client;
+const esTransport = new ElasticsearchTransport(esTransportOpts);
+
+module.exports = esTransport;
