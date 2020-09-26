@@ -3,6 +3,19 @@ const User = require("../models/User");
 const chalk = require("chalk");
 const bcrypt = require("bcryptjs");
 const { generateAccessToken } = require("../middleware/auth");
+// const { logger, hello } = require("../middleware/logger");
+const stringify = require("json-stringify-safe");
+const winston = require("winston");
+const Elasticsearch = require("winston-elasticsearch");
+
+// * Elastic
+const esTransportOpts = {
+  level: "info",
+  clientOpts: {
+    node: "http://localhost:9200",
+    log: "info",
+  },
+};
 
 // * @route POST /api/auth/register
 // @desc    Register a User
@@ -17,7 +30,17 @@ exports.register = asyncHandler(async (req, res, next) => {
   const token = await generateAccessToken(user.id);
 
   // * Push Logs to Elastic
-  // const logs=elasticPush(user)
+  const logger = winston.createLogger({
+    level: "info",
+    format: winston.format.json(),
+    defaultMeta: {
+      host: `${req.protocol}://${req.get("host")}`,
+      method: req.method,
+      url: req.originalUrl,
+    },
+    transports: [new Elasticsearch.ElasticsearchTransport(esTransportOpts)],
+  });
+  logger.info(`Register Success-${user.email}`);
 
   res.status(200).json({
     success: true,
@@ -62,7 +85,17 @@ exports.login = asyncHandler(async (req, res, next) => {
   const token = await generateAccessToken(loadedUser.id);
 
   // * Push Logs to Elastic
-  // const logs=elasticPush(user)
+  const logger = winston.createLogger({
+    level: "info",
+    format: winston.format.json(),
+    defaultMeta: {
+      host: `${req.protocol}://${req.get("host")}`,
+      method: req.method,
+      url: req.originalUrl,
+    },
+    transports: [new Elasticsearch.ElasticsearchTransport(esTransportOpts)],
+  });
+  logger.info(`Login_Success-${user.email}`);
 
   res.status(200).json({
     success: true,
@@ -83,7 +116,17 @@ exports.getMe = asyncHandler(async (req, res, next) => {
   }
 
   // * Push Logs to Elastic
-  // const logs=elasticPush(user)
+  const logger = winston.createLogger({
+    level: "info",
+    format: winston.format.json(),
+    defaultMeta: {
+      host: `${req.protocol}://${req.get("host")}`,
+      method: req.method,
+      url: req.originalUrl,
+    },
+    transports: [new Elasticsearch.ElasticsearchTransport(esTransportOpts)],
+  });
+  logger.info(`GetUserDetail-${user.email}`);
 
   return res.status(200).json({ success: true, data: user });
 });

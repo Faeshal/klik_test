@@ -44,9 +44,9 @@ app.get("/", (req, res, next) => {
 // * Server Listen & Database
 mongoConnection();
 
-client.cluster.health({}, function (err, resp, status) {
-  console.log("-- Client Health --", resp);
-});
+// client.cluster.health({}, function (err, resp, status) {
+//   console.log("-- Client Health --", resp);
+// });
 
 app.listen(PORT, (err) => {
   if (err) {

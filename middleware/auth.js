@@ -1,6 +1,5 @@
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
-const chalk = require("chalk");
 
 exports.protect = async (req, res, next) => {
   try {
