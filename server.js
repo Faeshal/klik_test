@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const PORT = 1000;
 const mongoConnection = require("./middleware/mongo");
+const client = require("./middleware/elastic");
 const MONGO_URI = "mongodb://localhost:27017/klik";
 const morgan = require("morgan");
 const chalk = require("chalk");
@@ -42,6 +43,10 @@ app.get("/", (req, res, next) => {
 
 // * Server Listen & Database
 mongoConnection();
+
+client.cluster.health({}, function (err, resp, status) {
+  console.log("-- Client Health --", resp);
+});
 
 app.listen(PORT, (err) => {
   if (err) {
