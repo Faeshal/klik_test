@@ -9,15 +9,15 @@
 4. Payment Gateway : Midtrans - Gopay
 
 ### 🔹 **Step Installation** :
-1. Make sure **connected to the internet** & local Elastic server is **already running**.
-2. Change **.env.example** to **.env** & fill the secret key below:
+1. Make sure **connected to the internet** & local Elastic server (default port : 9200) is **already running**. If you dont have, [download here](https://www.elastic.co/downloads/elasticsearch)
+2. Next, Change **.env.example** to **.env** & fill the secret key below:
     * ##### MONGO_URI=mongodb+srv://faeshal:toshibac855d@cluster0.9k0n7.mongodb.net/klik?retryWrites=true&w=majority
     * ##### ELASTIC_URI=http://localhost:9200
     * ##### JWT_SECRET_ACCESS_TOKEN=76k1bgpHmC
     * ##### MIDTRANS_SERVER_KEY=SB-Mid-server-vMgJOtss_zGeLfqAK_KNolSh
     * ##### MIDTRANS_CLIENT_KEY=SB-Mid-client-9HOSFzP6dyj593ww
-3. Install package type : **npm install**
-4. Run the server type : **npm run dev**
+3. Install package, type : **npm install**
+4. Run the server, type : **npm run dev**
 5. Last, go to the main routes for details endpoints docs (Swagger):
 **http://localhost:1000**
 
