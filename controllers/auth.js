@@ -1,7 +1,6 @@
 require("dotenv").config();
 const asyncHandler = require("../middleware/asyncHandler");
 const User = require("../models/User");
-const chalk = require("chalk");
 const bcrypt = require("bcryptjs");
 const { generateAccessToken } = require("../middleware/auth");
 
@@ -21,7 +20,7 @@ exports.register = asyncHandler(async (req, res, next) => {
   const hashedPw = await bcrypt.hash(password, 12);
   const user = await User.create({ username, email, password: hashedPw });
 
-  // * Generate Access Token Token
+  // * Generate Access Token
   const token = await generateAccessToken(user.id);
 
   res.status(200).json({

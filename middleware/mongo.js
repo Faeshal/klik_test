@@ -10,7 +10,7 @@ const mongoConnection = async () => {
       useFindAndModify: false,
       useUnifiedTopology: true,
     });
-    console.log(chalk.blueBright("MongoDB is UP !"));
+    console.log(chalk.blueBright.bold("MongoDB is UP !"));
   } catch (error) {
     console.error(chalk.red.bold(error));
     process.exit(1);

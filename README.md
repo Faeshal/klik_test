@@ -9,15 +9,15 @@
 4. Payment Gateway : Midtrans - Gopay
 
 ### 🔹 **Step Installation** :
-1. make sure connected to the internet & local Elastic server is already running
-2. change **.env.example** to **.env** & fill the secret key below:
+1. Make sure connected to the internet & local Elastic server is already running.
+2. Change **.env.example** to **.env** & fill the secret key below:
     * ##### MONGO_URI=mongodb+srv://faeshal:toshibac855d@cluster0.9k0n7.mongodb.net/klik?retryWrites=true&w=majority
     * ##### ELASTIC_URI=http://localhost:9200
     * ##### JWT_SECRET_ACCESS_TOKEN=76k1bgpHmC
     * ##### MIDTRANS_SERVER_KEY=SB-Mid-server-vMgJOtss_zGeLfqAK_KNolSh
     * ##### MIDTRANS_CLIENT_KEY=SB-Mid-client-9HOSFzP6dyj593ww
-3. for install package type : **npm install**
-4. for running the server type : **npm run dev**
+3. Install package type : **npm install**
+4. Run the server type : **npm run dev**
 5. Last, go to the main routes for details endpoints docs (Swagger):
 **http://localhost:1000**
 
@@ -30,22 +30,26 @@
 * The entrypoint is server.js
 
 ### 🔹 **Dependency:**
-* express = The main framework for building an API  
-* nodemon = for automatically restart server
-* chalk = give color to spesific log
-* morgan = http request logger
-* cors = used to enable CORS with various options.
-* winston = logger transporter 
-* winston-elasticsearch = connector for elastic search
-* mongoose = ODM for mongodb to create schema, relation etc.
-* connect-mongodb-session = for saving session inside mongodb 
-* bcryptjs = password encryption
-* jsonwebtoken = Auth Mechanism library
-* midtrans-client= payment gateway driver library
+* express : The main framework for building an API  
+* nodemon : for automatically restart server
+* dotenv : environment variable loader
+* chalk : give color to spesific log
+* morgan : http request logger
+* cors : used to enable CORS with various options.
+* winston : logger transporter 
+* winston-elasticsearch : logger connector for elastic search
+* mongoose : ODM for mongodb to create schema, relation etc.
+* express session : express middleware for session management
+* connect-mongodb-session : saving session inside mongodb 
+* bcryptjs : password encryption
+* express-winston : express logger middleware 
+* jsonwebtoken : Auth Mechanism library
+* swagger-ui-express : documentation generator
+* midtrans-client : payment gateway driver library
 
 ### 🔹 **Result:**
 
-**Example Postman Payments API Respons :**
+**📌Example Postman Payments API Respons :**
 ```json
 {
     "success": true,
@@ -101,11 +105,11 @@
 }
 ```
 
-**Elastic Search Logs (via GUI CLient https://elasticvue.com/) :**
+**📌Elastic Search Logs (via GUI CLient https://elasticvue.com/) 1 request - 1 logs :**
 
 ![elastic](https://i.postimg.cc/qMPGPXT5/Screenshot-3.png)
 
-**Example Elastic logs docs :**
+**📌Example Elastic logs docs :**
 ```json
 {
 	"_index": "logs-2020.09.27",
@@ -148,15 +152,18 @@
 	}
 }
 ```
-**Midtrans Dashboard :**
+**📌Midtrans Dashboard :**
 
 ![mid](https://i.postimg.cc/yNPX3MSM/mid.png)
 
 
-**MongoDB User, **Session** & Payment Collections :**
+**📌MongoDB User, **Session** & Payment Collections :**
 
 ![users](https://i.postimg.cc/fy3xFkgs/users.png)
 ![session](https://i.postimg.cc/Y9CN6d6h/sessions.png)
 ![pay](https://i.postimg.cc/1t7GJDBM/payment.png)
+
+
+### 🏅 **Thank You - September 2020 - [faeshal.com](https://faeshal.com)**
 
 
