@@ -3,7 +3,7 @@
   "info": {
     "version": "1.0",
     "title": "KLIK  DIGITAL SINERGI API",
-    "description": "Backend REST API for technical test in klik digital sinergi. Build Nodejs + Express, MongoDB, ElasticSearch & integrated with midtrans payment gateway",
+    "description": "Backend REST API for technical test in klik digital sinergi. Build with Nodejs + Express, MongoDB, ElasticSearch & integrated with midtrans payment gateway",
     "contact": {}
   },
   "host": "localhost:1000",
@@ -24,12 +24,12 @@
         "description": "register new user",
         "summary": "register",
         "tags": [
-          "Misc"
+          "auth"
         ],
         "operationId": "register",
         "deprecated": false,
         "produces": [
-          "application/json"
+          "application/json; charset=utf-8"
         ],
         "parameters": [
           {
@@ -52,7 +52,85 @@
         "responses": {
           "200": {
             "description": "",
-            "headers": {}
+            "schema": {
+              "$ref": "#/definitions/register"
+            },
+            "examples": {
+              "application/json; charset=utf-8": {
+                "success": true,
+                "data": {
+                  "user": "faeshal",
+                  "email": "faeshal@gmail.com",
+                  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmNmZmYWQ5ZTEzZjdhMjJlYzYxYzZkNCIsImlhdCI6MTYwMTE3NDIzMywiZXhwIjoxNjAzNzY2MjMzfQ.lQar7hvD5w3ADHf7jIYytNrY6rzdLgwUSYTNBCdr508"
+                }
+              }
+            },
+            "headers": {
+              "Content-Security-Policy": {
+                "type": "string",
+                "default": "default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+              },
+              "X-DNS-Prefetch-Control": {
+                "type": "string",
+                "default": "off"
+              },
+              "Expect-CT": {
+                "type": "string",
+                "default": "max-age=0"
+              },
+              "X-Frame-Options": {
+                "type": "string",
+                "default": "SAMEORIGIN"
+              },
+              "Strict-Transport-Security": {
+                "type": "string",
+                "default": "max-age=15552000; includeSubDomains"
+              },
+              "X-Download-Options": {
+                "type": "string",
+                "default": "noopen"
+              },
+              "X-Content-Type-Options": {
+                "type": "string",
+                "default": "nosniff"
+              },
+              "X-Permitted-Cross-Domain-Policies": {
+                "type": "string",
+                "default": "none"
+              },
+              "Referrer-Policy": {
+                "type": "string",
+                "default": "no-referrer"
+              },
+              "X-XSS-Protection": {
+                "type": "string",
+                "default": "0"
+              },
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "default": "*"
+              },
+              "Content-Length": {
+                "type": "string",
+                "default": "252"
+              },
+              "ETag": {
+                "type": "string",
+                "default": "W/\"fc-6Ld7AofWv9p9wJIqZoLlRBsvFfQ\""
+              },
+              "Set-Cookie": {
+                "type": "string",
+                "default": "connect.sid=s%3Ad4LQzW9QbVeooJqx07I6r_-1RDs2aT4j.cj%2FE9%2BtJ1pkqsEQvRwbC0k1jjyiTconRAM4oTGeezdQ; Path=/; HttpOnly"
+              },
+              "Date": {
+                "type": "string",
+                "default": "Sun, 27 Sep 2020 02:37:13 GMT"
+              },
+              "Connection": {
+                "type": "string",
+                "default": "keep-alive"
+              }
+            }
           }
         }
       }
@@ -62,7 +140,7 @@
         "description": "sign in user with JWT access token",
         "summary": "login",
         "tags": [
-          "Misc"
+          "auth"
         ],
         "operationId": "login",
         "deprecated": false,
@@ -96,7 +174,7 @@
             "examples": {
               "application/json; charset=utf-8": {
                 "success": true,
-                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmNmY2NmVmNTA4ZTE4MzkwMDdjMTUyZiIsImlhdCI6MTYwMTEzNjQyMiwiZXhwIjoxNjAzNzI4NDIyfQ.lVh0nSu5cnovD0IUor254RSjfmt0PFo2CdiFBHeXy_U"
+                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmNmZmM2VmNzM1Y2E5MWUwODAxYzZkZSIsImlhdCI6MTYwMTE3MjYxMiwiZXhwIjoxNjAzNzY0NjEyfQ.YVv05hJXJx3LEQi2W8c7ioN6YmrdLGhp9SS2pQHL54M"
               }
             },
             "headers": {
@@ -150,11 +228,11 @@
               },
               "ETag": {
                 "type": "string",
-                "default": "W/\"c6-xlat9bT+qBpkCUJZ6S7pQ7hStBM\""
+                "default": "W/\"c6-18MvNxPMJGhEXCuZrj+/511uDjo\""
               },
               "Date": {
                 "type": "string",
-                "default": "Sat, 26 Sep 2020 16:07:02 GMT"
+                "default": "Sun, 27 Sep 2020 02:10:12 GMT"
               },
               "Connection": {
                 "type": "string",
@@ -167,10 +245,10 @@
     },
     "/auth/me": {
       "get": {
-        "description": "get detail user information that currently logged in",
+        "description": "(Private Route | Need JWT Token) get detail user information that currently logged in.",
         "summary": "get me",
         "tags": [
-          "Misc"
+          "auth"
         ],
         "operationId": "getme",
         "deprecated": false,
@@ -196,10 +274,10 @@
               "application/json; charset=utf-8": {
                 "success": true,
                 "data": {
-                  "_id": "5f6f66ef508e1839007c152f",
+                  "_id": "5f6ffad9e13f7a22ec61c6d4",
                   "username": "faeshal",
                   "email": "faeshal@gmail.com",
-                  "createdAt": "2020-09-26T16:06:07.209Z",
+                  "createdAt": "2020-09-27T02:37:13.745Z",
                   "__v": 0
                 }
               }
@@ -255,11 +333,11 @@
               },
               "ETag": {
                 "type": "string",
-                "default": "W/\"9a-itQFtnMeQSEy7jKHMF4Wd/gBwyI\""
+                "default": "W/\"9a-0Yf7yjp4LGP5+1KOt+rrJCwr+2w\""
               },
               "Date": {
                 "type": "string",
-                "default": "Sat, 26 Sep 2020 16:07:22 GMT"
+                "default": "Sun, 27 Sep 2020 02:58:58 GMT"
               },
               "Connection": {
                 "type": "string",
@@ -272,9 +350,10 @@
     },
     "/user/payments": {
       "post": {
+        "description": "(Private Route | Need JWT Token) create a new payment & integrated with midtrans payment gateway.",
         "summary": "create payment",
         "tags": [
-          "Misc"
+          "payment"
         ],
         "operationId": "createpayment",
         "deprecated": false,
@@ -300,7 +379,7 @@
           }
         ],
         "responses": {
-          "200": {
+          "201": {
             "description": "",
             "schema": {
               "$ref": "#/definitions/createpayment"
@@ -309,51 +388,51 @@
               "application/json; charset=utf-8": {
                 "success": true,
                 "data": {
-                  "_id": "5f6f6899508e1839007c1531",
+                  "_id": "5f6fffa51421390b247f1a0c",
                   "user": {
-                    "_id": "5f6f66ef508e1839007c152f",
+                    "_id": "5f6ffad9e13f7a22ec61c6d4",
                     "username": "faeshal",
                     "email": "faeshal@gmail.com"
                   },
-                  "productName": "yamaha vixion",
+                  "productName": "pecel lele",
                   "quantity": 2,
-                  "price": 25000000,
-                  "total": 50000000,
-                  "createdAt": "2020-09-26T16:13:13.046Z",
+                  "price": 20000,
+                  "total": 40000,
+                  "createdAt": "2020-09-27T02:57:41.982Z",
                   "__v": 0
                 },
                 "chargeResponse": {
                   "status_code": "201",
                   "status_message": "GO-PAY transaction is created",
-                  "transaction_id": "3b1ac5e8-9d14-4bfd-aa2c-296398f895e7",
-                  "order_id": "5f6f6899508e1839007c1531",
+                  "transaction_id": "93519dea-24d2-4d1e-b95b-b82b23786529",
+                  "order_id": "5f6fffa51421390b247f1a0c",
                   "merchant_id": "G998502637",
-                  "gross_amount": "50000000.00",
+                  "gross_amount": "40000.00",
                   "currency": "IDR",
                   "payment_type": "gopay",
-                  "transaction_time": "2020-09-26 23:13:14",
+                  "transaction_time": "2020-09-27 09:57:41",
                   "transaction_status": "pending",
                   "fraud_status": "accept",
                   "actions": [
                     {
                       "name": "generate-qr-code",
                       "method": "GET",
-                      "url": "https://api.sandbox.veritrans.co.id/v2/gopay/3b1ac5e8-9d14-4bfd-aa2c-296398f895e7/qr-code"
+                      "url": "https://api.sandbox.veritrans.co.id/v2/gopay/93519dea-24d2-4d1e-b95b-b82b23786529/qr-code"
                     },
                     {
                       "name": "deeplink-redirect",
                       "method": "GET",
-                      "url": "https://simulator.sandbox.midtrans.com/gopay/ui/checkout?referenceid=Bvlat4Z9Ab&callback_url=http%3A%2F%2Flocalhost%3A1000%2F%3Forder_id%3D5f6f6899508e1839007c1531"
+                      "url": "https://simulator.sandbox.midtrans.com/gopay/ui/checkout?referenceid=l1XOms5Iaj&callback_url=http%3A%2F%2Flocalhost%3A1000%2F%3Forder_id%3D5f6fffa51421390b247f1a0c"
                     },
                     {
                       "name": "get-status",
                       "method": "GET",
-                      "url": "https://api.sandbox.veritrans.co.id/v2/3b1ac5e8-9d14-4bfd-aa2c-296398f895e7/status"
+                      "url": "https://api.sandbox.veritrans.co.id/v2/93519dea-24d2-4d1e-b95b-b82b23786529/status"
                     },
                     {
                       "name": "cancel",
                       "method": "POST",
-                      "url": "https://api.sandbox.veritrans.co.id/v2/3b1ac5e8-9d14-4bfd-aa2c-296398f895e7/cancel"
+                      "url": "https://api.sandbox.veritrans.co.id/v2/93519dea-24d2-4d1e-b95b-b82b23786529/cancel"
                     }
                   ]
                 }
@@ -406,15 +485,15 @@
               },
               "Content-Length": {
                 "type": "string",
-                "default": "1269"
+                "default": "1257"
               },
               "ETag": {
                 "type": "string",
-                "default": "W/\"4f5-bY5kbehEZK+ySkYv9ixbCTKl5ME\""
+                "default": "W/\"4e9-bRgLTXquegJxMXrjdpuYillZdCE\""
               },
               "Date": {
                 "type": "string",
-                "default": "Sat, 26 Sep 2020 16:13:14 GMT"
+                "default": "Sun, 27 Sep 2020 02:57:42 GMT"
               },
               "Connection": {
                 "type": "string",
@@ -425,9 +504,10 @@
         }
       },
       "get": {
+        "description": "(Private Route | Need JWT Token) get all payment data from all user. ",
         "summary": "list payments",
         "tags": [
-          "Misc"
+          "payment"
         ],
         "operationId": "listpayments",
         "deprecated": false,
@@ -455,31 +535,31 @@
                 "total": 2,
                 "data": [
                   {
-                    "_id": "5f6f6899508e1839007c1531",
+                    "_id": "5f6fffa51421390b247f1a0c",
                     "user": {
-                      "_id": "5f6f66ef508e1839007c152f",
+                      "_id": "5f6ffad9e13f7a22ec61c6d4",
                       "username": "faeshal",
                       "email": "faeshal@gmail.com"
                     },
-                    "productName": "yamaha vixion",
+                    "productName": "pecel lele",
                     "quantity": 2,
-                    "price": 25000000,
-                    "total": 50000000,
-                    "createdAt": "2020-09-26T16:13:13.046Z",
+                    "price": 20000,
+                    "total": 40000,
+                    "createdAt": "2020-09-27T02:57:41.982Z",
                     "__v": 0
                   },
                   {
-                    "_id": "5f6f6901508e1839007c1532",
+                    "_id": "5f7000701421390b247f1a0e",
                     "user": {
-                      "_id": "5f6f66ef508e1839007c152f",
-                      "username": "faeshal",
-                      "email": "faeshal@gmail.com"
+                      "_id": "5f70003c1421390b247f1a0d",
+                      "username": "abdullah",
+                      "email": "abdullah@gmail.com"
                     },
-                    "productName": "Honda Beat",
-                    "quantity": 3,
-                    "price": 12000000,
-                    "total": 36000000,
-                    "createdAt": "2020-09-26T16:14:57.651Z",
+                    "productName": "martabak manis",
+                    "quantity": 4,
+                    "price": 10000,
+                    "total": 40000,
+                    "createdAt": "2020-09-27T03:01:04.626Z",
                     "__v": 0
                   }
                 ]
@@ -532,15 +612,15 @@
               },
               "Content-Length": {
                 "type": "string",
-                "default": "532"
+                "default": "523"
               },
               "ETag": {
                 "type": "string",
-                "default": "W/\"214-XRcWGvY4xpq6IyeH2moaXxnzf5s\""
+                "default": "W/\"20b-Z9+MXxIr3PBFyocTeo8Jiq8zn+Y\""
               },
               "Date": {
                 "type": "string",
-                "default": "Sat, 26 Sep 2020 16:15:03 GMT"
+                "default": "Sun, 27 Sep 2020 03:01:41 GMT"
               },
               "Connection": {
                 "type": "string",
@@ -558,7 +638,7 @@
       "example": {
         "username": "faeshal",
         "email": "faeshal@gmail.com",
-        "password": "faeshal123"
+        "password": "test123"
       },
       "type": "object",
       "properties": {
@@ -578,11 +658,60 @@
         "password"
       ]
     },
+    "register": {
+      "title": "register",
+      "example": {
+        "success": true,
+        "data": {
+          "user": "faeshal",
+          "email": "faeshal@gmail.com",
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmNmZmYWQ5ZTEzZjdhMjJlYzYxYzZkNCIsImlhdCI6MTYwMTE3NDIzMywiZXhwIjoxNjAzNzY2MjMzfQ.lQar7hvD5w3ADHf7jIYytNrY6rzdLgwUSYTNBCdr508"
+        }
+      },
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "data": {
+          "$ref": "#/definitions/Data"
+        }
+      },
+      "required": [
+        "success",
+        "data"
+      ]
+    },
+    "Data": {
+      "title": "Data",
+      "example": {
+        "user": "faeshal",
+        "email": "faeshal@gmail.com",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmNmZmYWQ5ZTEzZjdhMjJlYzYxYzZkNCIsImlhdCI6MTYwMTE3NDIzMywiZXhwIjoxNjAzNzY2MjMzfQ.lQar7hvD5w3ADHf7jIYytNrY6rzdLgwUSYTNBCdr508"
+      },
+      "type": "object",
+      "properties": {
+        "user": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "user",
+        "email",
+        "token"
+      ]
+    },
     "loginrequest": {
       "title": "loginrequest",
       "example": {
         "email": "faeshal@gmail.com",
-        "password": "faeshal123"
+        "password": "test123"
       },
       "type": "object",
       "properties": {
@@ -602,7 +731,7 @@
       "title": "login",
       "example": {
         "success": true,
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmNmY2NmVmNTA4ZTE4MzkwMDdjMTUyZiIsImlhdCI6MTYwMTEzNjQyMiwiZXhwIjoxNjAzNzI4NDIyfQ.lVh0nSu5cnovD0IUor254RSjfmt0PFo2CdiFBHeXy_U"
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmNmZmM2VmNzM1Y2E5MWUwODAxYzZkZSIsImlhdCI6MTYwMTE3MjYxMiwiZXhwIjoxNjAzNzY0NjEyfQ.YVv05hJXJx3LEQi2W8c7ioN6YmrdLGhp9SS2pQHL54M"
       },
       "type": "object",
       "properties": {
@@ -623,10 +752,10 @@
       "example": {
         "success": true,
         "data": {
-          "_id": "5f6f66ef508e1839007c152f",
+          "_id": "5f6ffad9e13f7a22ec61c6d4",
           "username": "faeshal",
           "email": "faeshal@gmail.com",
-          "createdAt": "2020-09-26T16:06:07.209Z",
+          "createdAt": "2020-09-27T02:37:13.745Z",
           "__v": 0
         }
       },
@@ -636,7 +765,7 @@
           "type": "boolean"
         },
         "data": {
-          "$ref": "#/definitions/Data"
+          "$ref": "#/definitions/Data1"
         }
       },
       "required": [
@@ -644,13 +773,13 @@
         "data"
       ]
     },
-    "Data": {
-      "title": "Data",
+    "Data1": {
+      "title": "Data1",
       "example": {
-        "_id": "5f6f66ef508e1839007c152f",
+        "_id": "5f6ffad9e13f7a22ec61c6d4",
         "username": "faeshal",
         "email": "faeshal@gmail.com",
-        "createdAt": "2020-09-26T16:06:07.209Z",
+        "createdAt": "2020-09-27T02:37:13.745Z",
         "__v": 0
       },
       "type": "object",
@@ -683,9 +812,9 @@
     "createpaymentrequest": {
       "title": "createpaymentrequest",
       "example": {
-        "productName": "yamaha vixion",
+        "productName": "pecel lele",
         "quantity": 2,
-        "price": 25000000
+        "price": 20000
       },
       "type": "object",
       "properties": {
@@ -712,51 +841,51 @@
       "example": {
         "success": true,
         "data": {
-          "_id": "5f6f6899508e1839007c1531",
+          "_id": "5f6fffa51421390b247f1a0c",
           "user": {
-            "_id": "5f6f66ef508e1839007c152f",
+            "_id": "5f6ffad9e13f7a22ec61c6d4",
             "username": "faeshal",
             "email": "faeshal@gmail.com"
           },
-          "productName": "yamaha vixion",
+          "productName": "pecel lele",
           "quantity": 2,
-          "price": 25000000,
-          "total": 50000000,
-          "createdAt": "2020-09-26T16:13:13.046Z",
+          "price": 20000,
+          "total": 40000,
+          "createdAt": "2020-09-27T02:57:41.982Z",
           "__v": 0
         },
         "chargeResponse": {
           "status_code": "201",
           "status_message": "GO-PAY transaction is created",
-          "transaction_id": "3b1ac5e8-9d14-4bfd-aa2c-296398f895e7",
-          "order_id": "5f6f6899508e1839007c1531",
+          "transaction_id": "93519dea-24d2-4d1e-b95b-b82b23786529",
+          "order_id": "5f6fffa51421390b247f1a0c",
           "merchant_id": "G998502637",
-          "gross_amount": "50000000.00",
+          "gross_amount": "40000.00",
           "currency": "IDR",
           "payment_type": "gopay",
-          "transaction_time": "2020-09-26 23:13:14",
+          "transaction_time": "2020-09-27 09:57:41",
           "transaction_status": "pending",
           "fraud_status": "accept",
           "actions": [
             {
               "name": "generate-qr-code",
               "method": "GET",
-              "url": "https://api.sandbox.veritrans.co.id/v2/gopay/3b1ac5e8-9d14-4bfd-aa2c-296398f895e7/qr-code"
+              "url": "https://api.sandbox.veritrans.co.id/v2/gopay/93519dea-24d2-4d1e-b95b-b82b23786529/qr-code"
             },
             {
               "name": "deeplink-redirect",
               "method": "GET",
-              "url": "https://simulator.sandbox.midtrans.com/gopay/ui/checkout?referenceid=Bvlat4Z9Ab&callback_url=http%3A%2F%2Flocalhost%3A1000%2F%3Forder_id%3D5f6f6899508e1839007c1531"
+              "url": "https://simulator.sandbox.midtrans.com/gopay/ui/checkout?referenceid=l1XOms5Iaj&callback_url=http%3A%2F%2Flocalhost%3A1000%2F%3Forder_id%3D5f6fffa51421390b247f1a0c"
             },
             {
               "name": "get-status",
               "method": "GET",
-              "url": "https://api.sandbox.veritrans.co.id/v2/3b1ac5e8-9d14-4bfd-aa2c-296398f895e7/status"
+              "url": "https://api.sandbox.veritrans.co.id/v2/93519dea-24d2-4d1e-b95b-b82b23786529/status"
             },
             {
               "name": "cancel",
               "method": "POST",
-              "url": "https://api.sandbox.veritrans.co.id/v2/3b1ac5e8-9d14-4bfd-aa2c-296398f895e7/cancel"
+              "url": "https://api.sandbox.veritrans.co.id/v2/93519dea-24d2-4d1e-b95b-b82b23786529/cancel"
             }
           ]
         }
@@ -767,7 +896,7 @@
           "type": "boolean"
         },
         "data": {
-          "$ref": "#/definitions/Data1"
+          "$ref": "#/definitions/Data2"
         },
         "chargeResponse": {
           "$ref": "#/definitions/ChargeResponse"
@@ -779,20 +908,20 @@
         "chargeResponse"
       ]
     },
-    "Data1": {
-      "title": "Data1",
+    "Data2": {
+      "title": "Data2",
       "example": {
-        "_id": "5f6f6899508e1839007c1531",
+        "_id": "5f6fffa51421390b247f1a0c",
         "user": {
-          "_id": "5f6f66ef508e1839007c152f",
+          "_id": "5f6ffad9e13f7a22ec61c6d4",
           "username": "faeshal",
           "email": "faeshal@gmail.com"
         },
-        "productName": "yamaha vixion",
+        "productName": "pecel lele",
         "quantity": 2,
-        "price": 25000000,
-        "total": 50000000,
-        "createdAt": "2020-09-26T16:13:13.046Z",
+        "price": 20000,
+        "total": 40000,
+        "createdAt": "2020-09-27T02:57:41.982Z",
         "__v": 0
       },
       "type": "object",
@@ -840,7 +969,7 @@
     "User": {
       "title": "User",
       "example": {
-        "_id": "5f6f66ef508e1839007c152f",
+        "_id": "5f6ffad9e13f7a22ec61c6d4",
         "username": "faeshal",
         "email": "faeshal@gmail.com"
       },
@@ -867,35 +996,35 @@
       "example": {
         "status_code": "201",
         "status_message": "GO-PAY transaction is created",
-        "transaction_id": "3b1ac5e8-9d14-4bfd-aa2c-296398f895e7",
-        "order_id": "5f6f6899508e1839007c1531",
+        "transaction_id": "93519dea-24d2-4d1e-b95b-b82b23786529",
+        "order_id": "5f6fffa51421390b247f1a0c",
         "merchant_id": "G998502637",
-        "gross_amount": "50000000.00",
+        "gross_amount": "40000.00",
         "currency": "IDR",
         "payment_type": "gopay",
-        "transaction_time": "2020-09-26 23:13:14",
+        "transaction_time": "2020-09-27 09:57:41",
         "transaction_status": "pending",
         "fraud_status": "accept",
         "actions": [
           {
             "name": "generate-qr-code",
             "method": "GET",
-            "url": "https://api.sandbox.veritrans.co.id/v2/gopay/3b1ac5e8-9d14-4bfd-aa2c-296398f895e7/qr-code"
+            "url": "https://api.sandbox.veritrans.co.id/v2/gopay/93519dea-24d2-4d1e-b95b-b82b23786529/qr-code"
           },
           {
             "name": "deeplink-redirect",
             "method": "GET",
-            "url": "https://simulator.sandbox.midtrans.com/gopay/ui/checkout?referenceid=Bvlat4Z9Ab&callback_url=http%3A%2F%2Flocalhost%3A1000%2F%3Forder_id%3D5f6f6899508e1839007c1531"
+            "url": "https://simulator.sandbox.midtrans.com/gopay/ui/checkout?referenceid=l1XOms5Iaj&callback_url=http%3A%2F%2Flocalhost%3A1000%2F%3Forder_id%3D5f6fffa51421390b247f1a0c"
           },
           {
             "name": "get-status",
             "method": "GET",
-            "url": "https://api.sandbox.veritrans.co.id/v2/3b1ac5e8-9d14-4bfd-aa2c-296398f895e7/status"
+            "url": "https://api.sandbox.veritrans.co.id/v2/93519dea-24d2-4d1e-b95b-b82b23786529/status"
           },
           {
             "name": "cancel",
             "method": "POST",
-            "url": "https://api.sandbox.veritrans.co.id/v2/3b1ac5e8-9d14-4bfd-aa2c-296398f895e7/cancel"
+            "url": "https://api.sandbox.veritrans.co.id/v2/93519dea-24d2-4d1e-b95b-b82b23786529/cancel"
           }
         ]
       },
@@ -961,7 +1090,7 @@
       "example": {
         "name": "generate-qr-code",
         "method": "GET",
-        "url": "https://api.sandbox.veritrans.co.id/v2/gopay/3b1ac5e8-9d14-4bfd-aa2c-296398f895e7/qr-code"
+        "url": "https://api.sandbox.veritrans.co.id/v2/gopay/93519dea-24d2-4d1e-b95b-b82b23786529/qr-code"
       },
       "type": "object",
       "properties": {
@@ -988,31 +1117,31 @@
         "total": 2,
         "data": [
           {
-            "_id": "5f6f6899508e1839007c1531",
+            "_id": "5f6fffa51421390b247f1a0c",
             "user": {
-              "_id": "5f6f66ef508e1839007c152f",
+              "_id": "5f6ffad9e13f7a22ec61c6d4",
               "username": "faeshal",
               "email": "faeshal@gmail.com"
             },
-            "productName": "yamaha vixion",
+            "productName": "pecel lele",
             "quantity": 2,
-            "price": 25000000,
-            "total": 50000000,
-            "createdAt": "2020-09-26T16:13:13.046Z",
+            "price": 20000,
+            "total": 40000,
+            "createdAt": "2020-09-27T02:57:41.982Z",
             "__v": 0
           },
           {
-            "_id": "5f6f6901508e1839007c1532",
+            "_id": "5f7000701421390b247f1a0e",
             "user": {
-              "_id": "5f6f66ef508e1839007c152f",
-              "username": "faeshal",
-              "email": "faeshal@gmail.com"
+              "_id": "5f70003c1421390b247f1a0d",
+              "username": "abdullah",
+              "email": "abdullah@gmail.com"
             },
-            "productName": "Honda Beat",
-            "quantity": 3,
-            "price": 12000000,
-            "total": 36000000,
-            "createdAt": "2020-09-26T16:14:57.651Z",
+            "productName": "martabak manis",
+            "quantity": 4,
+            "price": 10000,
+            "total": 40000,
+            "createdAt": "2020-09-27T03:01:04.626Z",
             "__v": 0
           }
         ]
@@ -1029,7 +1158,7 @@
         "data": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/Data1"
+            "$ref": "#/definitions/Data2"
           }
         }
       },
@@ -1042,8 +1171,12 @@
   },
   "tags": [
     {
-      "name": "Misc",
-      "description": ""
+      "name": "auth",
+      "description": "user authentication api with JWT. please provide your token if you request to private route."
+    },
+    {
+      "name": "payment",
+      "description": "user payments api. please provide your token in every route."
     }
   ]
 }

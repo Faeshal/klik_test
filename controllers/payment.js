@@ -1,11 +1,12 @@
 require("dotenv").config();
 const asyncHandler = require("../middleware/asyncHandler");
 const Payment = require("../models/Payment");
+const User = require("../models/User");
 const chalk = require("chalk");
 const midtrans = require("../middleware/midtrans");
 
 // * @route POST /api/user/payments
-// @desc    Register a User
+// @desc    Create New Payment
 // @access  Private
 exports.createPayments = asyncHandler(async (req, res, next) => {
   let { productName, price, quantity } = req.body;
@@ -15,13 +16,20 @@ exports.createPayments = asyncHandler(async (req, res, next) => {
   const userId = req.user;
   const total = price * quantity;
 
-  // * Save To MongoDB
+  const user = await User.findById(userId);
+  if (!user) {
+    return res.status(401).json({
+      success: false,
+      message: "Unauthorized, Make sure input your correct JWT token first",
+    });
+  }
+
   await Payment.create({ user: userId, productName, quantity, price, total });
   const payment = await Payment.findOne({ user: userId })
     .populate("user", "username email")
     .sort({ _id: -1 });
 
-  console.log(chalk.yellow.inverse(payment));
+  console.log(chalk.yellowBright.inverse(payment));
 
   let parameter = {
     payment_type: "gopay",
@@ -37,8 +45,8 @@ exports.createPayments = asyncHandler(async (req, res, next) => {
       },
     ],
     customer_details: {
-      username: payment.user.username,
-      email: payment.user.email,
+      username: user.username,
+      email: user.email,
     },
     gopay: {
       enable_callback: true, //optional
@@ -49,13 +57,16 @@ exports.createPayments = asyncHandler(async (req, res, next) => {
   // * charge transaction
   const chargeResponse = await midtrans.charge(parameter);
 
-  res.status(200).json({
+  res.status(201).json({
     success: true,
     data: payment,
     chargeResponse,
   });
 });
 
+// * @route GET /api/user/payments
+// @desc    Get all payments list
+// @access  Private
 exports.listPayments = asyncHandler(async (req, res, next) => {
   const payment = await Payment.find().populate("user", "username email");
   if (payment.length == 0) {

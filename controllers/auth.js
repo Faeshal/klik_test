@@ -11,6 +11,13 @@ const { generateAccessToken } = require("../middleware/auth");
 exports.register = asyncHandler(async (req, res, next) => {
   const { username, email, password } = req.body;
 
+  // * Validate
+  if (!username || !email || !password) {
+    return res
+      .status(400)
+      .json({ success: false, message: "All Field is Required" });
+  }
+
   const hashedPw = await bcrypt.hash(password, 12);
   const user = await User.create({ username, email, password: hashedPw });
 
@@ -36,7 +43,10 @@ exports.login = asyncHandler(async (req, res, next) => {
 
   // * Validate email & password
   if (!email || !password) {
-    return next(new ErrorResponse("Please provide an email and password", 400));
+    return res.status(400).json({
+      success: false,
+      message: "Please provide an email and password",
+    });
   }
 
   const user = await User.findOne({ email }).select("+password");
@@ -65,16 +75,16 @@ exports.login = asyncHandler(async (req, res, next) => {
   });
 });
 
-// * @route   POST /api/auth/me
+// * @route   GET /api/auth/me
 // @desc      Get current logged in user
 // @access    Private
 exports.getMe = asyncHandler(async (req, res, next) => {
-  console.log(chalk.yellow(req.user));
   const user = await User.findById(req.user);
   if (!user) {
-    return res
-      .status(400)
-      .json({ success: false, message: "Not Getting The Data" });
+    return res.status(400).json({
+      success: false,
+      message: "Not Getting The Data, Make sure input the correct Token",
+    });
   }
 
   return res.status(200).json({ success: true, data: user });
