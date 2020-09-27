@@ -4,12 +4,12 @@
 ![img](https://i.postimg.cc/BvG8NrN6/1-fsse-XIPGEhwmg6kfg-Xy-Ij-A.jpg)
 ### 🔹 **Tech Stack** :
 1. Backend + Documentation : Node.Js & Express + Swagger
-2. DBMS : MongoDB & Elastic
+2. DBMS : MongoDB Atlas (cloud) & Elastic
 3. Elastic GUI Client : https://elasticvue.com/
 4. Payment Gateway : Midtrans - Gopay
 
 ### 🔹 **Step Installation** :
-1. Make sure connected to the internet & local Elastic server is already running.
+1. Make sure **connected to the internet** & local Elastic server is **already running**.
 2. Change **.env.example** to **.env** & fill the secret key below:
     * ##### MONGO_URI=mongodb+srv://faeshal:toshibac855d@cluster0.9k0n7.mongodb.net/klik?retryWrites=true&w=majority
     * ##### ELASTIC_URI=http://localhost:9200
@@ -35,6 +35,7 @@
 * dotenv : environment variable loader
 * chalk : give color to spesific log
 * morgan : http request logger
+* helmet : security library for http headers
 * cors : used to enable CORS with various options.
 * winston : logger transporter 
 * winston-elasticsearch : logger connector for elastic search

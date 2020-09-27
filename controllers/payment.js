@@ -3,6 +3,7 @@ const asyncHandler = require("../middleware/asyncHandler");
 const Payment = require("../models/Payment");
 const User = require("../models/User");
 const chalk = require("chalk");
+const { trim } = require("validator");
 const midtrans = require("../middleware/midtrans");
 
 // * @route POST /api/user/payments
@@ -15,16 +16,32 @@ exports.createPayments = asyncHandler(async (req, res, next) => {
   }
   const userId = req.user;
   const total = price * quantity;
-
   const user = await User.findById(userId);
+
+  // *Validate
   if (!user) {
     return res.status(401).json({
       success: false,
-      message: "Unauthorized, Make sure input your correct JWT token first",
+      message: "Missing data, Make sure input your correct JWT token first",
     });
   }
 
-  await Payment.create({ user: userId, productName, quantity, price, total });
+  if (!productName || !price) {
+    return res.status(400).json({
+      success: false,
+      message: "productName & price is required",
+    });
+  }
+
+  // * Save To Mongo
+  await Payment.create({
+    user: userId,
+    productName: trim(productName),
+    quantity,
+    price,
+    total,
+  });
+
   const payment = await Payment.findOne({ user: userId })
     .populate("user", "username email")
     .sort({ _id: -1 });
