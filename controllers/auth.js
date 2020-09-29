@@ -31,6 +31,14 @@ exports.register = asyncHandler(async (req, res, next) => {
     });
   }
 
+  const isExist = User.findOne({ email: email });
+  if (isExist) {
+    return res.status(400).json({
+      success: false,
+      message: "Email is already exist, please pick diferent one",
+    });
+  }
+
   const hashedPw = await bcrypt.hash(password, 12);
   const user = await User.create({
     username: trim(username),
