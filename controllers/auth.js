@@ -31,7 +31,8 @@ exports.register = asyncHandler(async (req, res, next) => {
     });
   }
 
-  const isExist = User.findOne({ email: email });
+  const isExist = await User.findOne({ email: email });
+  console.log(isExist);
   if (isExist) {
     return res.status(400).json({
       success: false,
